@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Caelis Air</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0F1A2E;
+      --navy-mid:  #132238;
+      --navy-card: #1a2d47;
+      --sky:       #4FA9FF;
+      --silver:    #D4D9E2;
+      --slate:     #5A6475;
+      --white:     #FFFFFF;
+      --font-head: 'Avenir Next', 'Century Gothic', 'Futura', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(15, 26, 46, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(79, 169, 255, 0.12);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .nav-logo-icon { width: 36px; height: 36px; }
+    .nav-logo-text {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 17px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo-text span { color: var(--sky); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--silver); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-links a.active { color: var(--sky); }
+    .nav-cta {
+      background: var(--sky); color: var(--navy) !important;
+      padding: 8px 20px; border-radius: 4px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: #70BBFF !important; }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: 140px 24px 80px;
+      text-align: center;
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,169,255,0.06) 0%, transparent 70%);
+    }
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 14px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .page-sub {
+      font-size: 16px; color: var(--silver);
+      max-width: 560px; margin: 0 auto;
+      font-style: italic; line-height: 1.8;
+    }
+    .page-sub span { color: var(--sky); }
+
+    /* ── Shared section styles ── */
+    .container {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .container-narrow {
+      max-width: 720px; margin: 0 auto; padding: 0 24px;
+    }
+
+    /* ── Mission ── */
+    .mission {
+      padding: 100px 24px;
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+    }
+    .mission-inner {
+      max-width: 720px; margin: 0 auto;
+      text-align: center;
+    }
+    .mission-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .mission-body {
+      font-size: 16px; color: var(--silver);
+      line-height: 1.9; margin-bottom: 20px;
+    }
+    .mission-body + .mission-body { margin-bottom: 0; }
+
+    .mission-quote {
+      margin: 48px auto 0;
+      padding: 32px 40px;
+      background: var(--navy-card);
+      border-left: 3px solid var(--sky);
+      border-radius: 0 8px 8px 0;
+      text-align: left;
+      max-width: 600px;
+    }
+    .mission-quote p {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--white);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .mission-quote cite {
+      font-size: 12px; font-style: normal;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky);
+    }
+
+    /* ── Values ── */
+    .values {
+      padding: 100px 24px;
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+    }
+    .values-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .values-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .value-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.1);
+      border-radius: 8px; padding: 32px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .value-card:hover {
+      border-color: rgba(79,169,255,0.35);
+      transform: translateY(-2px);
+    }
+    .value-icon { font-size: 28px; margin-bottom: 16px; }
+    .value-name {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 14px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 10px;
+    }
+    .value-desc {
+      font-size: 14px; color: var(--silver); line-height: 1.7;
+    }
+
+    /* ── Story / founder ── */
+    .story {
+      padding: 100px 24px;
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+    }
+    .story-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-text .section-label { margin-bottom: 16px; }
+    .story-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .story-body {
+      font-size: 15px; color: var(--silver);
+      line-height: 1.9; margin-bottom: 16px;
+    }
+
+    .founder-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.12);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+    .founder-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--navy-mid);
+      border: 2px solid var(--sky);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-weight: 700;
+      font-size: 28px; color: var(--sky);
+      margin: 0 auto 20px;
+    }
+    .founder-role {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 8px;
+    }
+    .founder-name {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 22px;
+      letter-spacing: 0.06em; margin-bottom: 16px;
+    }
+    .founder-divider {
+      height: 1px; background: rgba(79,169,255,0.1);
+      margin: 20px 0;
+    }
+    .founder-bio {
+      font-size: 14px; color: var(--silver);
+      line-height: 1.7; text-align: left;
+    }
+    .founder-callsign {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--sky);
+      background: rgba(79,169,255,0.08);
+      border: 1px solid rgba(79,169,255,0.2);
+      border-radius: 4px; padding: 6px 14px;
+    }
+
+    /* ── What makes us different ── */
+    .different {
+      padding: 100px 24px;
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+    }
+    .different-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .different-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .different-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px; margin: 0 auto;
+      border: 1px solid rgba(79,169,255,0.1);
+      border-radius: 8px; overflow: hidden;
+    }
+    .diff-item {
+      background: var(--navy-card);
+      padding: 40px 32px;
+    }
+    .diff-icon { font-size: 24px; margin-bottom: 16px; }
+    .diff-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 15px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 12px; color: var(--white);
+    }
+    .diff-desc {
+      font-size: 14px; color: var(--silver); line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .cta-box {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.2);
+      border-radius: 12px;
+      padding: 72px 48px;
+      max-width: 700px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(79,169,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(24px, 4vw, 38px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .cta-body {
+      font-size: 15px; color: var(--silver);
+      margin-bottom: 40px; line-height: 1.8;
+    }
+    .cta-actions {
+      display: flex; gap: 16px;
+      justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--sky); color: var(--navy);
+      font-family: var(--font-body); font-size: 13px;
+      font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 14px 32px;
+      border-radius: 4px; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #70BBFF; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--silver);
+      font-family: var(--font-body); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 14px 32px;
+      border-radius: 4px; border: 1px solid var(--slate);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--sky); color: var(--sky); transform: translateY(-1px); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(79,169,255,0.1);
+      padding: 40px 48px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: 14px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--silver);
+    }
+    .footer-logo span { color: var(--sky); }
+    .footer-meta { font-size: 12px; color: var(--slate); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 12px; color: var(--slate); text-decoration: none;
+      letter-spacing: 0.08em; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sky); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .story-inner { grid-template-columns: 1fr; gap: 48px; }
+      .different-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 48px 24px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .value-card:hover, .btn-primary:hover, .btn-secondary:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M8 28 L20 10 L32 20 L20 24 Z" fill="#4FA9FF" opacity="0.9"/>
+        <path d="M14 30 L20 14 L28 22 L20 26 Z" fill="#D4D9E2" opacity="0.5"/>
+      </svg>
+      <span class="nav-logo-text">C<span>AELIS</span> AIR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html">PIREPs</a></li>
+      <li><a href="#" class="nav-cta">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="section-label">Our Story</p>
+    <h1 class="page-title">About Caelis Air</h1>
+    <p class="page-sub"><span>Caelis Air</span> is a global virtual airline community built on freedom, exploration, and connection. No limits. No routes. Just the sky.</p>
+  </div>
+
+  <!-- MISSION -->
+  <section class="mission">
+    <div class="mission-inner">
+      <p class="section-label">Mission Statement</p>
+      <h2 class="mission-title">Why We Exist</h2>
+      <p class="mission-body">Caelis Air exists to bring flight simulation enthusiasts together — not through rigid rules or mandatory schedules, but through a shared love of aviation and exploration. We believe there is no single right way to enjoy flight simulation.</p>
+      <p class="mission-body">Whether you're a seasoned virtual pilot with thousands of hours or someone who just installed MSFS for the first time, you belong here. Every destination has a story, and every pilot has a journey worth sharing.</p>
+      <div class="mission-quote">
+        <p>"Fly what you want, when you want, where you want."</p>
+        <cite>— The Caelis Air Promise</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="values-header">
+      <p class="section-label">What We Stand For</p>
+      <h2 class="values-title">Our Core Values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🌐</div>
+        <p class="value-name">Freedom</p>
+        <p class="value-desc">No mandatory routes, no required schedules. Fly what inspires you — a bush plane over the Rockies, a widebody across the Pacific, or laps around your hometown airport.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧭</div>
+        <p class="value-name">Exploration</p>
+        <p class="value-desc">Every destination has a story waiting to be discovered. We encourage pilots to explore beyond the major hubs and find the beauty in every corner of the simulated world.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <p class="value-name">Community</p>
+        <p class="value-desc">Flights are better when shared. Caelis Air is first and foremost a community — a place to swap stories, share screenshots, and celebrate each other's milestones.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📖</div>
+        <p class="value-name">Learning</p>
+        <p class="value-desc">Every pilot starts somewhere. We welcome beginners and veterans alike, and believe that sharing knowledge makes us all better aviators.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤍</div>
+        <p class="value-name">Respect</p>
+        <p class="value-desc">Everyone is welcome regardless of experience level, background, or preferred aircraft. Caelis Air is a positive, inclusive space for all flight sim enthusiasts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY / FOUNDER -->
+  <section class="story">
+    <div class="story-inner">
+      <div class="story-text">
+        <p class="section-label">How It Started</p>
+        <h2 class="story-title">One Pilot, One Idea</h2>
+        <p class="story-body">Caelis Air started with a simple frustration — most virtual airlines felt more like a second job than a hobby. Mandatory routes, strict schedules, rigid requirements. The fun of just flying wherever the wind takes you had been lost somewhere along the way.</p>
+        <p class="story-body">So Caelis Air was built differently. A VA where the only rule is to enjoy yourself. Log your flights, earn your ranks, and be part of a community that celebrates the love of aviation above everything else.</p>
+        <p class="story-body">We're just getting started — and the skies are wide open.</p>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">CA</div>
+        <p class="founder-role">Founder & CEO</p>
+        <p class="founder-name">Caelis Air HQ</p>
+        <div class="founder-divider"></div>
+        <p class="founder-bio">Caelis Air was founded by a passionate MSFS 2024 enthusiast who wanted to create the kind of virtual airline community they always wished existed — casual, welcoming, and built around the joy of flight simulation.</p>
+        <span class="founder-callsign">ICAO: CLS · Callsign: CAELIS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT MAKES US DIFFERENT -->
+  <section class="different">
+    <div class="different-header">
+      <p class="section-label">The Caelis Difference</p>
+      <h2 class="different-title">Not Your Average VA</h2>
+    </div>
+    <div class="different-grid">
+      <div class="diff-item">
+        <div class="diff-icon">✈️</div>
+        <p class="diff-title">Fly Anything</p>
+        <p class="diff-desc">Cessna 172 or Boeing 747 — there are no aircraft restrictions at Caelis Air. If it flies in MSFS 2024, it counts.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">🗺️</div>
+        <p class="diff-title">Go Anywhere</p>
+        <p class="diff-desc">No assigned routes, no required destinations. The entire simulated world is your playground — explore it however you like.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">⏱️</div>
+        <p class="diff-title">Fly on Your Time</p>
+        <p class="diff-desc">No schedules, no deadlines, no minimums. Log a flight when you want, as often as you want — or just hang out in the community.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <p class="section-label">Come Fly With Us</p>
+      <h2 class="cta-title">Ready to Join the Crew?</h2>
+      <p class="cta-body">Caelis Air is free, open, and always welcoming new pilots. Join the Discord, introduce yourself, and start logging flights. The runway is clear.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary">Join on Discord</a>
+        <a href="roster.html" class="btn-secondary">View the Roster</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">C<span>AELIS</span> AIR</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html">PIREPs</a></li>
+      <li><a href="#">Join</a></li>
+    </ul>
+    <p class="footer-meta">ICAO: CLS · IATA: CI · Callsign: CAELIS</p>
+  </footer>
+
+</body>
+</html>
