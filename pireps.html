@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIREP Log — Caelis Air</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0F1A2E;
+      --navy-mid:  #132238;
+      --navy-card: #1a2d47;
+      --sky:       #4FA9FF;
+      --silver:    #D4D9E2;
+      --slate:     #5A6475;
+      --white:     #FFFFFF;
+      --font-head: 'Avenir Next', 'Century Gothic', 'Futura', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(15, 26, 46, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(79, 169, 255, 0.12);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .nav-logo-icon { width: 36px; height: 36px; }
+    .nav-logo-text {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 17px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo-text span { color: var(--sky); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--silver); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-links a.active { color: var(--sky); }
+    .nav-cta {
+      background: var(--sky); color: var(--navy) !important;
+      padding: 8px 20px; border-radius: 4px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: #70BBFF !important; }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: 140px 24px 60px;
+      text-align: center;
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,169,255,0.06) 0%, transparent 70%);
+    }
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 14px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .page-sub {
+      font-size: 15px; color: var(--slate); max-width: 480px; margin: 0 auto;
+    }
+
+    /* ── Stats strip ── */
+    .stats-strip {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+      padding: 32px 24px;
+    }
+    .stats-strip-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .strip-stat {
+      text-align: center; padding: 16px;
+    }
+    .strip-stat-num {
+      font-family: var(--font-head);
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700; color: var(--sky);
+      letter-spacing: 0.03em; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .strip-stat-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    /* ── Controls ── */
+    .controls {
+      max-width: 1100px; margin: 40px auto 0;
+      padding: 0 24px;
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    }
+    .search-wrap {
+      position: relative; flex: 1; min-width: 200px;
+    }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); pointer-events: none;
+    }
+    #search {
+      width: 100%; background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.15);
+      border-radius: 6px; padding: 10px 14px 10px 40px;
+      color: var(--white); font-family: var(--font-body);
+      font-size: 14px; outline: none; transition: border-color 0.2s;
+    }
+    #search::placeholder { color: var(--slate); }
+    #search:focus { border-color: var(--sky); }
+
+    .filter-select {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.15);
+      border-radius: 6px; padding: 10px 16px;
+      color: var(--silver); font-family: var(--font-body);
+      font-size: 14px; outline: none; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus { border-color: var(--sky); }
+
+    .log-btn {
+      background: var(--sky); color: var(--navy);
+      font-family: var(--font-body); font-size: 13px;
+      font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 10px 20px;
+      border-radius: 6px; text-decoration: none;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .log-btn:hover { background: #70BBFF; }
+
+    .pirep-count {
+      font-size: 13px; color: var(--slate);
+      margin-left: auto; white-space: nowrap;
+    }
+    .pirep-count span { color: var(--sky); font-weight: 600; }
+
+    /* ── Table ── */
+    .table-section {
+      max-width: 1100px; margin: 24px auto 0;
+      padding: 0 24px 100px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(79,169,255,0.1);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--navy-card);
+      border-bottom: 1px solid rgba(79,169,255,0.15);
+    }
+
+    th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky); white-space: nowrap;
+      cursor: pointer; user-select: none;
+      transition: color 0.2s;
+    }
+    th:hover { color: #70BBFF; }
+    th .sort-arrow { margin-left: 4px; opacity: 0.4; }
+    th.sorted .sort-arrow { opacity: 1; }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(79,169,255,0.06);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(79,169,255,0.04); }
+
+    td {
+      padding: 14px 16px;
+      color: var(--silver);
+      vertical-align: middle;
+    }
+
+    .td-date { color: var(--slate); font-size: 13px; white-space: nowrap; }
+
+    .td-route {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 15px;
+      letter-spacing: 0.06em; color: var(--white);
+      white-space: nowrap;
+    }
+    .route-arrow {
+      color: var(--sky); font-size: 12px; opacity: 0.7;
+    }
+
+    .td-aircraft {
+      font-size: 13px; color: var(--silver);
+    }
+
+    .td-time {
+      font-family: var(--font-head);
+      font-weight: 700; color: var(--sky);
+      white-space: nowrap;
+    }
+
+    .td-pilot { font-size: 13px; color: var(--silver); }
+
+    .td-notes {
+      font-size: 13px; color: var(--slate);
+      max-width: 220px;
+    }
+    .notes-text {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .notes-empty { opacity: 0.3; font-style: italic; }
+
+    /* State messages */
+    .state-row td {
+      text-align: center; padding: 80px 24px;
+      color: var(--slate); font-size: 14px;
+    }
+    .state-row strong {
+      display: block; color: var(--silver);
+      font-size: 18px; margin-bottom: 8px;
+    }
+    .spinner {
+      width: 28px; height: 28px; margin: 0 auto 16px;
+      border: 2px solid rgba(79,169,255,0.2);
+      border-top-color: var(--sky);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(79,169,255,0.1);
+      padding: 40px 48px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: 14px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--silver);
+    }
+    .footer-logo span { color: var(--sky); }
+    .footer-meta { font-size: 12px; color: var(--slate); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 12px; color: var(--slate); text-decoration: none;
+      letter-spacing: 0.08em; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sky); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+      .controls { flex-direction: column; align-items: stretch; }
+      .pirep-count { margin-left: 0; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spinner { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M8 28 L20 10 L32 20 L20 24 Z" fill="#4FA9FF" opacity="0.9"/>
+        <path d="M14 30 L20 14 L28 22 L20 26 Z" fill="#D4D9E2" opacity="0.5"/>
+      </svg>
+      <span class="nav-logo-text">C<span>AELIS</span> AIR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html" class="active">PIREPs</a></li>
+      <li><a href="#" class="nav-cta">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="section-label">Flight Log</p>
+    <h1 class="page-title">PIREP Log</h1>
+    <p class="page-sub">Every flight logged by Caelis Air pilots — routes, aircraft, and hours building our community's story in the sky.</p>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stats-strip-inner">
+      <div class="strip-stat">
+        <div class="strip-stat-num" id="statTotal">–</div>
+        <div class="strip-stat-label">Total Flights</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-stat-num" id="statHours">–</div>
+        <div class="strip-stat-label">Total Hours</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-stat-num" id="statAircraft">–</div>
+        <div class="strip-stat-label">Aircraft Flown</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-stat-num" id="statRoutes">–</div>
+        <div class="strip-stat-label">Unique Routes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="#5A6475" stroke-width="1.5"/>
+        <path d="M10 10l3 3" stroke="#5A6475" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="search" placeholder="Search by pilot, route, or aircraft…" />
+    </div>
+    <select class="filter-select" id="aircraftFilter">
+      <option value="">All Aircraft</option>
+    </select>
+    <a href="YOUR_GOOGLE_FORM_URL_HERE" target="_blank" class="log-btn">+ Log a Flight</a>
+    <p class="pirep-count">Showing <span id="visibleCount">–</span> flights</p>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-section">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-col="date">Date <span class="sort-arrow">↕</span></th>
+            <th data-col="pilot">Pilot <span class="sort-arrow">↕</span></th>
+            <th data-col="route">Route <span class="sort-arrow">↕</span></th>
+            <th data-col="aircraft">Aircraft <span class="sort-arrow">↕</span></th>
+            <th data-col="time">Flight Time <span class="sort-arrow">↕</span></th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="pirepsBody">
+          <tr class="state-row">
+            <td colspan="6">
+              <div class="spinner"></div>
+              Loading flight log…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">C<span>AELIS</span> AIR</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html">PIREPs</a></li>
+      <li><a href="#">Join</a></li>
+    </ul>
+    <p class="footer-meta">ICAO: CLS · IATA: CI · Callsign: CAELIS</p>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CONFIGURATION — edit these when you're ready
+    // ─────────────────────────────────────────────────────────────
+
+    // 1. Paste your published Google Sheet CSV URL here.
+    //    File → Share → Publish to web → Sheet → CSV → Copy link
+    //    Expected columns (in order):
+    //    Date | Pilot Name | Departure | Arrival | Aircraft | Flight Time (hrs) | Notes
+    const SHEET_CSV_URL = 'YOUR_GOOGLE_SHEET_CSV_URL_HERE';
+
+    // 2. Paste your Google Form URL here (for the Log a Flight button)
+    //    Already done in the HTML above — search for YOUR_GOOGLE_FORM_URL_HERE
+
+    // ─────────────────────────────────────────────────────────────
+    // Parse CSV
+    // ─────────────────────────────────────────────────────────────
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      return lines.slice(1).map(line => {
+        // handle quoted fields with commas inside
+        const cols = [];
+        let cur = '', inQ = false;
+        for (const ch of line) {
+          if (ch === '"') { inQ = !inQ; continue; }
+          if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; continue; }
+          cur += ch;
+        }
+        cols.push(cur.trim());
+        return {
+          date:     cols[0] || '',
+          pilot:    cols[1] || '',
+          dep:      (cols[2] || '').toUpperCase(),
+          arr:      (cols[3] || '').toUpperCase(),
+          aircraft: cols[4] || '',
+          time:     parseFloat(cols[5]) || 0,
+          notes:    cols[6] || '',
+        };
+      }).filter(p => p.date && p.pilot);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Format hours nicely  e.g. 1.5 → "1h 30m"
+    // ─────────────────────────────────────────────────────────────
+    function fmtHours(h) {
+      const hrs = Math.floor(h);
+      const mins = Math.round((h - hrs) * 60);
+      if (hrs === 0) return `${mins}m`;
+      if (mins === 0) return `${hrs}h`;
+      return `${hrs}h ${mins}m`;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // State
+    // ─────────────────────────────────────────────────────────────
+    let allPireps = [];
+    let sortCol = 'date';
+    let sortAsc = false;
+
+    // ─────────────────────────────────────────────────────────────
+    // Render
+    // ─────────────────────────────────────────────────────────────
+    function applyFilters() {
+      const query    = document.getElementById('search').value.toLowerCase();
+      const aircraft = document.getElementById('aircraftFilter').value;
+
+      let filtered = allPireps.filter(p => {
+        const route = `${p.dep} ${p.arr}`.toLowerCase();
+        const matchSearch = !query ||
+          p.pilot.toLowerCase().includes(query) ||
+          route.includes(query) ||
+          p.aircraft.toLowerCase().includes(query);
+        const matchAircraft = !aircraft || p.aircraft === aircraft;
+        return matchSearch && matchAircraft;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        let av, bv;
+        if (sortCol === 'date')     { av = new Date(a.date); bv = new Date(b.date); }
+        else if (sortCol === 'pilot')    { av = a.pilot;    bv = b.pilot; }
+        else if (sortCol === 'route')    { av = a.dep;      bv = b.dep; }
+        else if (sortCol === 'aircraft') { av = a.aircraft; bv = b.aircraft; }
+        else if (sortCol === 'time')     { av = a.time;     bv = b.time; }
+        else { av = 0; bv = 0; }
+        if (av < bv) return sortAsc ? -1 : 1;
+        if (av > bv) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      renderTable(filtered);
+      document.getElementById('visibleCount').textContent = filtered.length;
+    }
+
+    function renderTable(pireps) {
+      const tbody = document.getElementById('pirepsBody');
+      tbody.innerHTML = '';
+
+      if (pireps.length === 0) {
+        tbody.innerHTML = `<tr class="state-row"><td colspan="6"><strong>No flights found</strong>Try adjusting your search or filter.</td></tr>`;
+        return;
+      }
+
+      pireps.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="td-date">${p.date}</td>
+          <td class="td-pilot">${p.pilot}</td>
+          <td>
+            <div class="td-route">
+              ${p.dep}
+              <span class="route-arrow">→</span>
+              ${p.arr}
+            </div>
+          </td>
+          <td class="td-aircraft">${p.aircraft}</td>
+          <td class="td-time">${fmtHours(p.time)}</td>
+          <td class="td-notes">
+            ${p.notes
+              ? `<span class="notes-text">${p.notes}</span>`
+              : `<span class="notes-empty">—</span>`}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateStats(pireps) {
+      const total   = pireps.length;
+      const hours   = pireps.reduce((s, p) => s + p.time, 0);
+      const aircraft = new Set(pireps.map(p => p.aircraft).filter(Boolean)).size;
+      const routes   = new Set(pireps.map(p => `${p.dep}-${p.arr}`)).size;
+
+      document.getElementById('statTotal').textContent   = total.toLocaleString();
+      document.getElementById('statHours').textContent   = fmtHours(hours);
+      document.getElementById('statAircraft').textContent = aircraft;
+      document.getElementById('statRoutes').textContent  = routes;
+    }
+
+    function populateAircraftFilter(pireps) {
+      const sel = document.getElementById('aircraftFilter');
+      const types = [...new Set(pireps.map(p => p.aircraft).filter(Boolean))].sort();
+      types.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = t;
+        sel.appendChild(opt);
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Sortable headers
+    // ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('th[data-col]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        if (sortCol === col) { sortAsc = !sortAsc; }
+        else { sortCol = col; sortAsc = false; }
+        document.querySelectorAll('th').forEach(h => h.classList.remove('sorted'));
+        th.classList.add('sorted');
+        th.querySelector('.sort-arrow').textContent = sortAsc ? '↑' : '↓';
+        applyFilters();
+      });
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // Fetch
+    // ─────────────────────────────────────────────────────────────
+    async function loadPireps() {
+      const tbody = document.getElementById('pirepsBody');
+
+      if (SHEET_CSV_URL === 'YOUR_GOOGLE_SHEET_CSV_URL_HERE') {
+        // Demo data
+        allPireps = [
+          { date: '2026-06-25', pilot: 'Alex Mercer',    dep: 'EGLL', arr: 'KJFK', aircraft: 'Boeing 777',      time: 7.5,  notes: 'Smooth crossing, light turbulence over the Atlantic.' },
+          { date: '2026-06-24', pilot: 'Yuki Tanaka',    dep: 'RJTT', arr: 'VHHH', aircraft: 'Airbus A350',     time: 4.2,  notes: '' },
+          { date: '2026-06-23', pilot: 'Sam Rivera',     dep: 'KLAX', arr: 'KSFO', aircraft: 'Cessna 172',      time: 0.75, notes: 'Short hop up the coast, stunning views.' },
+          { date: '2026-06-22', pilot: 'Jordan Blake',   dep: 'EDDF', arr: 'LEMD', aircraft: 'Airbus A320',     time: 2.8,  notes: '' },
+          { date: '2026-06-21', pilot: 'Casey O\'Brien', dep: 'YSSY', arr: 'NZAA', aircraft: 'Boeing 737',      time: 3.1,  notes: 'Beautiful Tasman crossing.' },
+          { date: '2026-06-20', pilot: 'Morgan Ellis',   dep: 'CYYZ', arr: 'KORD', aircraft: 'Dash 8 Q400',     time: 1.2,  notes: '' },
+          { date: '2026-06-19', pilot: 'Riley Shaw',     dep: 'OMDB', arr: 'VABB', aircraft: 'Boeing 777',      time: 3.4,  notes: 'Perfect weather all the way.' },
+          { date: '2026-06-18', pilot: 'Alex Mercer',    dep: 'KLAX', arr: 'PHNL', aircraft: 'Airbus A330',     time: 5.5,  notes: '' },
+          { date: '2026-06-17', pilot: 'Taylor Knox',    dep: 'EGBB', arr: 'EIDW', aircraft: 'ATR 72',          time: 0.9,  notes: 'First ever PIREP — loved every second!' },
+          { date: '2026-06-16', pilot: 'Yuki Tanaka',    dep: 'RJAA', arr: 'RKSI', aircraft: 'Boeing 737',      time: 2.1,  notes: '' },
+        ];
+        updateStats(allPireps);
+        populateAircraftFilter(allPireps);
+        applyFilters();
+        return;
+      }
+
+      try {
+        const res = await fetch(SHEET_CSV_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        allPireps = parseCSV(text);
+        if (allPireps.length === 0) throw new Error('No PIREP data found');
+        updateStats(allPireps);
+        populateAircraftFilter(allPireps);
+        applyFilters();
+      } catch (err) {
+        tbody.innerHTML = `<tr class="state-row"><td colspan="6"><strong>Couldn't load flight log</strong>Check that your Google Sheet is published as CSV.<br><br><small style="color:var(--slate)">${err.message}</small></td></tr>`;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Wire up controls
+    // ─────────────────────────────────────────────────────────────
+    document.getElementById('search').addEventListener('input', applyFilters);
+    document.getElementById('aircraftFilter').addEventListener('change', applyFilters);
+
+    loadPireps();
+  </script>
+
+</body>
+</html>
