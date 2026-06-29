@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liveries — Caelis Air</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0F1A2E;
+      --navy-mid:  #132238;
+      --navy-card: #1a2d47;
+      --sky:       #4FA9FF;
+      --silver:    #D4D9E2;
+      --slate:     #5A6475;
+      --white:     #FFFFFF;
+      --font-head: 'Avenir Next', 'Century Gothic', 'Futura', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(15, 26, 46, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(79, 169, 255, 0.12);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .nav-logo-icon { width: 36px; height: 36px; }
+    .nav-logo-text {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 17px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo-text span { color: var(--sky); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--silver); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-links a.active { color: var(--sky); }
+    .nav-cta {
+      background: var(--sky); color: var(--navy) !important;
+      padding: 8px 20px; border-radius: 4px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: #70BBFF !important; }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: 140px 24px 80px;
+      text-align: center;
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,169,255,0.06) 0%, transparent 70%);
+    }
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 14px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .page-sub {
+      font-size: 15px; color: var(--slate);
+      max-width: 480px; margin: 0 auto;
+    }
+
+    /* ── Install guide ── */
+    .install-guide {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(79,169,255,0.08);
+      padding: 48px 24px;
+    }
+    .install-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .install-title {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 20px;
+    }
+    .install-steps {
+      display: flex; gap: 24px; flex-wrap: wrap;
+    }
+    .install-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      flex: 1; min-width: 200px;
+    }
+    .install-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(79,169,255,0.1);
+      border: 1px solid rgba(79,169,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 12px;
+      font-weight: 700; color: var(--sky);
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .install-text strong {
+      display: block; font-size: 13px;
+      font-weight: 600; color: var(--white);
+      margin-bottom: 4px;
+    }
+    .install-text p {
+      font-size: 13px; color: var(--slate); line-height: 1.5;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      max-width: 1100px; margin: 48px auto 0;
+      padding: 0 24px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--slate);
+    }
+    .filter-btn {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.15);
+      border-radius: 20px; padding: 7px 18px;
+      color: var(--silver); font-family: var(--font-body);
+      font-size: 13px; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--sky); color: var(--sky); }
+    .filter-btn.active {
+      background: var(--sky); border-color: var(--sky);
+      color: var(--navy); font-weight: 600;
+    }
+    .livery-count {
+      margin-left: auto; font-size: 13px; color: var(--slate);
+    }
+    .livery-count span { color: var(--sky); font-weight: 600; }
+
+    /* ── Livery grid ── */
+    .livery-section {
+      max-width: 1100px; margin: 24px auto 0;
+      padding: 0 24px 100px;
+    }
+    .livery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Livery card ── */
+    .livery-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(79,169,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .livery-card:hover {
+      border-color: rgba(79,169,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    /* Placeholder image area */
+    .livery-img {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--navy-mid);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; position: relative; overflow: hidden;
+    }
+    .livery-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .livery-img-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #132238 0%, #1a2d47 100%);
+    }
+    .livery-img-placeholder svg { opacity: 0.2; }
+    .livery-img-placeholder span {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .livery-tag {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(15,26,46,0.8);
+      border: 1px solid rgba(79,169,255,0.2);
+      border-radius: 4px; padding: 4px 10px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--sky);
+    }
+
+    .livery-body { padding: 20px 24px 24px; }
+
+    .livery-aircraft {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 8px;
+    }
+    .livery-name {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 18px;
+      letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .livery-desc {
+      font-size: 13px; color: var(--silver);
+      line-height: 1.6; margin-bottom: 20px;
+    }
+
+    .livery-meta {
+      display: flex; gap: 16px; margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .livery-meta-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--slate);
+    }
+    .livery-meta-item svg { flex-shrink: 0; }
+
+    .livery-divider {
+      height: 1px; background: rgba(79,169,255,0.08);
+      margin-bottom: 20px;
+    }
+
+    .livery-actions {
+      display: flex; gap: 10px;
+    }
+    .btn-download {
+      flex: 1;
+      background: var(--sky); color: var(--navy);
+      font-family: var(--font-body); font-size: 13px;
+      font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 11px 20px;
+      border-radius: 6px; text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-download:hover { background: #70BBFF; }
+    .btn-download.coming-soon {
+      background: rgba(79,169,255,0.1);
+      color: var(--slate); cursor: not-allowed;
+      border: 1px solid rgba(79,169,255,0.15);
+    }
+    .btn-preview {
+      background: transparent; color: var(--silver);
+      font-family: var(--font-body); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 11px 16px;
+      border-radius: 6px; border: 1px solid var(--slate);
+      text-decoration: none; text-align: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-preview:hover { border-color: var(--sky); color: var(--sky); }
+
+    /* ── Coming soon banner ── */
+    .more-coming {
+      text-align: center;
+      padding: 60px 24px;
+      border-top: 1px solid rgba(79,169,255,0.08);
+      margin-top: 20px;
+    }
+    .more-coming p {
+      font-size: 14px; color: var(--slate);
+    }
+    .more-coming strong { color: var(--silver); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(79,169,255,0.1);
+      padding: 40px 48px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: 14px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--silver);
+    }
+    .footer-logo span { color: var(--sky); }
+    .footer-meta { font-size: 12px; color: var(--slate); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 12px; color: var(--slate); text-decoration: none;
+      letter-spacing: 0.08em; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sky); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .install-steps { flex-direction: column; }
+      .livery-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .livery-card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="2A11F4DE-165C-434C-B847-4A60F67660D4.png" class="nav-logo-icon" alt="Caelis Air logo" />
+      <span class="nav-logo-text">C<span>AELIS</span> AIR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html">PIREPs</a></li>
+      <li><a href="liveries.html" class="active">Liveries</a></li>
+      <li><a href="#" class="nav-cta">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="section-label">Official Liveries</p>
+    <h1 class="page-title">Caelis Air Liveries</h1>
+    <p class="page-sub">Dress your aircraft in the Caelis Air colours. Download our official liveries and fly the fleet in style.</p>
+  </div>
+
+  <!-- INSTALL GUIDE -->
+  <div class="install-guide">
+    <div class="install-inner">
+      <p class="install-title">How to Install</p>
+      <div class="install-steps">
+        <div class="install-step">
+          <div class="install-num">1</div>
+          <div class="install-text">
+            <strong>Download the livery</strong>
+            <p>Click the Download button and grab the file from FlightSim.to.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-num">2</div>
+          <div class="install-text">
+            <strong>Extract the files</strong>
+            <p>Unzip the downloaded file to get the livery folder inside.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-num">3</div>
+          <div class="install-text">
+            <strong>Move to Community folder</strong>
+            <p>Place the folder in your MSFS 2024 Community folder.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-num">4</div>
+          <div class="install-text">
+            <strong>Select in-sim</strong>
+            <p>Launch MSFS 2024, select your aircraft, and find the Caelis Air livery in the livery list.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="narrowbody">Narrowbody</button>
+    <button class="filter-btn" data-filter="widebody">Widebody</button>
+    <button class="filter-btn" data-filter="ga">General Aviation</button>
+    <button class="filter-btn" data-filter="military">Military</button>
+    <p class="livery-count"><span id="liveryCount">0</span> liveries</p>
+  </div>
+
+  <!-- LIVERY GRID -->
+  <div class="livery-section">
+    <div class="livery-grid" id="liveryGrid"></div>
+    <div class="more-coming">
+      <p><strong>More liveries coming soon.</strong> We're working on expanding the fleet — check back regularly or follow us on Discord for updates.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">C<span>AELIS</span> AIR</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="roster.html">Roster</a></li>
+      <li><a href="pireps.html">PIREPs</a></li>
+      <li><a href="liveries.html">Liveries</a></li>
+      <li><a href="#">Join</a></li>
+    </ul>
+    <p class="footer-meta">ICAO: CLS · IATA: CI · Callsign: CAELIS</p>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // LIVERY DATA
+    // Add your liveries here. For each one:
+    // - name: livery name
+    // - aircraft: aircraft type
+    // - category: 'narrowbody', 'widebody', or 'ga'
+    // - desc: short description
+    // - version: version string e.g. 'v1.0'
+    // - image: filename of your screenshot (put images in repo), or '' for placeholder
+    // - download: your FlightSim.to URL, or '' for coming soon
+    // ─────────────────────────────────────────────────────────────
+    const LIVERIES = [
+      {
+        name:     'Caelis Air House Livery',
+        aircraft: 'Airbus A320neo',
+        category: 'narrowbody',
+        desc:     'The official Caelis Air livery for the A320neo. Midnight navy fuselage with sky blue accents and the full Caelis wordmark.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air House Livery',
+        aircraft: 'Boeing 737-800',
+        category: 'narrowbody',
+        desc:     'The official Caelis Air livery for the 737-800. Clean navy and blue with silver wing detail.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air House Livery',
+        aircraft: 'Boeing 777-300ER',
+        category: 'widebody',
+        desc:     'The flagship Caelis Air livery for long-haul operations on the 777-300ER.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air House Livery',
+        aircraft: 'Cessna 172',
+        category: 'ga',
+        desc:     'Caelis Air colours on the classic Cessna 172 — perfect for local exploration flights.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air House Livery',
+        aircraft: 'Boeing 747-400',
+        category: 'widebody',
+        desc:     'Caelis Air civilian livery on the iconic 747. Midnight navy fuselage, sky blue tail, and the full Caelis wordmark along the fuselage.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air Military Livery',
+        aircraft: 'B-2 Spirit',
+        category: 'military',
+        desc:     'Caelis Air military scheme on the legendary B-2 stealth bomber. Dark navy finish with subtle Caelis markings.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air Military Livery',
+        aircraft: 'F-22 Raptor',
+        category: 'military',
+        desc:     'Caelis Air military livery on the F-22 Raptor. Sleek dark finish with Caelis tail markings and wing insignia.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air Military Livery',
+        aircraft: 'F-35 Lightning II',
+        category: 'military',
+        desc:     'Caelis Air colours on the F-35 Lightning II. Navy and sky blue scheme with full Caelis branding.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+      {
+        name:     'Caelis Air Military Livery',
+        aircraft: 'UH-60 Blackhawk',
+        category: 'military',
+        desc:     'Caelis Air military livery on the UH-60 Blackhawk helicopter. Dark navy finish with sky blue accent stripes.',
+        version:  'v1.0',
+        image:    '',
+        download: '',
+      },
+    ];
+
+    // ─────────────────────────────────────────────────────────────
+    // Render
+    // ─────────────────────────────────────────────────────────────
+    function renderLiveries(filter) {
+      const grid = document.getElementById('liveryGrid');
+      grid.innerHTML = '';
+
+      const filtered = filter === 'all'
+        ? LIVERIES
+        : LIVERIES.filter(l => l.category === filter);
+
+      document.getElementById('liveryCount').textContent = filtered.length;
+
+      filtered.forEach(l => {
+        const card = document.createElement('div');
+        card.className = 'livery-card';
+        card.dataset.category = l.category;
+
+        const categoryLabel = {
+          narrowbody: 'Narrowbody',
+          widebody:   'Widebody',
+          ga:         'General Aviation',
+          military:   'Military',
+        }[l.category] || l.category;
+
+        const imgHTML = l.image
+          ? `<img src="${l.image}" alt="${l.name} — ${l.aircraft}" />`
+          : `<div class="livery-img-placeholder">
+               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                 <path d="M6 36 L24 12 L42 28 L24 34 Z" fill="#4FA9FF"/>
+                 <path d="M12 38 L24 18 L36 30 L24 34 Z" fill="#D4D9E2" opacity="0.4"/>
+               </svg>
+               <span>Preview coming soon</span>
+             </div>`;
+
+        const downloadHTML = l.download
+          ? `<a href="${l.download}" target="_blank" class="btn-download">Download</a>`
+          : `<span class="btn-download coming-soon">Coming Soon</span>`;
+
+        card.innerHTML = `
+          <div class="livery-img">
+            ${imgHTML}
+            <span class="livery-tag">${categoryLabel}</span>
+          </div>
+          <div class="livery-body">
+            <p class="livery-aircraft">${l.aircraft}</p>
+            <h2 class="livery-name">${l.name}</h2>
+            <p class="livery-desc">${l.desc}</p>
+            <div class="livery-meta">
+              <div class="livery-meta-item">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <circle cx="6.5" cy="6.5" r="5.5" stroke="#5A6475" stroke-width="1.2"/>
+                  <path d="M6.5 3.5v3l2 1.5" stroke="#5A6475" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                ${l.version}
+              </div>
+              <div class="livery-meta-item">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M6.5 1.5 L8 5h3.5L8.5 7.5l1 3.5L6.5 9l-3 2 1-3.5L1.5 5H5Z" stroke="#5A6475" stroke-width="1.2" stroke-linejoin="round"/>
+                </svg>
+                MSFS 2024
+              </div>
+            </div>
+            <div class="livery-divider"></div>
+            <div class="livery-actions">
+              ${downloadHTML}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Filter buttons
+    // ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderLiveries(btn.dataset.filter);
+      });
+    });
+
+    renderLiveries('all');
+  </script>
+
+</body>
+</html>
