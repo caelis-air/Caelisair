@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log a Flight — Caelis Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1A2E;
+  --navy-mid: #132238;
+  --navy-card: #1a2d47;
+  --sky: #4FA9FF;
+  --silver: #D4D9E2;
+  --slate: #5A6475;
+  --white: #FFFFFF;
+  --green: #4ade80;
+  --red: #f87171;
+  --font-head: 'Avenir Next', 'Century Gothic', 'Futura', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+  background: rgba(15, 26, 46, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(79, 169, 255, 0.12);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-icon { width: 36px; height: 36px; }
+.nav-logo-text {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: 17px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white);
+}
+.nav-logo-text span { color: var(--sky); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--silver); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--sky); }
+.nav-links a.active { color: var(--sky); }
+.nav-cta {
+  background: var(--sky); color: var(--navy) !important;
+  padding: 8px 20px; border-radius: 4px; font-weight: 600 !important;
+}
+.nav-cta:hover { background: #70BBFF !important; }
+
+/* ── Page header ── */
+.page-header {
+  padding: 140px 24px 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(79,169,255,0.08);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,169,255,0.06) 0%, transparent 70%);
+}
+.section-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--sky); margin-bottom: 14px;
+}
+.page-title {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.page-sub {
+  font-size: 15px; color: var(--slate);
+  max-width: 440px; margin: 0 auto;
+}
+
+/* ── Form section ── */
+.form-section {
+  max-width: 680px;
+  margin: 60px auto 100px;
+  padding: 0 24px;
+}
+
+.form-card {
+  background: var(--navy-card);
+  border: 1px solid rgba(79,169,255,0.12);
+  border-radius: 12px;
+  padding: 48px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sky);
+}
+
+.label-optional {
+  color: var(--slate);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+input, textarea, select {
+  background: var(--navy-mid);
+  border: 1px solid rgba(79,169,255,0.15);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+
+input::placeholder, textarea::placeholder { color: var(--slate); }
+input:focus, textarea:focus, select:focus { border-color: var(--sky); background: rgba(19,34,56,0.9); }
+
+select option { background: var(--navy-card); }
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-divider {
+  height: 1px;
+  background: rgba(79,169,255,0.08);
+  margin: 32px 0;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--slate);
+  margin-top: 4px;
+}
+
+/* ── Submit button ── */
+.btn-submit {
+  width: 100%;
+  background: var(--sky);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 32px;
+}
+.btn-submit:hover { background: #70BBFF; transform: translateY(-1px); }
+.btn-submit:disabled {
+  background: var(--slate);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Success / error states ── */
+.form-status {
+  display: none;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+}
+.form-status.success {
+  display: block;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: var(--green);
+}
+.form-status.error {
+  display: block;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: var(--red);
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid rgba(79,169,255,0.1);
+  padding: 40px 48px;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--silver);
+}
+.footer-logo span { color: var(--sky); }
+.footer-meta { font-size: 12px; color: var(--slate); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a {
+  font-size: 12px; color: var(--slate); text-decoration: none;
+  letter-spacing: 0.08em; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--sky); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .form-card { padding: 28px 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-submit:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="2A11F4DE-165C-434C-B847-4A60F67660D4.png" class="nav-logo-icon" alt="Caelis Air logo" />
+    <span class="nav-logo-text">C<span>AELIS</span> AIR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="roster.html">Roster</a></li>
+    <li><a href="pireps.html" class="active">PIREPs</a></li>
+    <li><a href="livery.html">Liveries</a></li>
+    <li><a href="#" class="nav-cta">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="section-label">Flight Log</p>
+  <h1 class="page-title">Log a Flight</h1>
+  <p class="page-sub">Flown a flight under the Caelis Air banner? Log it here and add it to the books.</p>
+</div>
+
+<!-- FORM -->
+<div class="form-section">
+  <div class="form-card">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="pilotName">Pilot Name</label>
+        <input type="text" id="pilotName" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" required />
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="departure">Departure</label>
+        <input type="text" id="departure" placeholder="ICAO e.g. EGLL" maxlength="4" style="text-transform:uppercase" required />
+      </div>
+      <div class="form-group">
+        <label for="arrival">Arrival</label>
+        <input type="text" id="arrival" placeholder="ICAO e.g. KJFK" maxlength="4" style="text-transform:uppercase" required />
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="aircraft">Aircraft</label>
+        <input type="text" id="aircraft" placeholder="e.g. Airbus A320neo" required />
+      </div>
+      <div class="form-group">
+        <label for="flightTime">Flight Time <span class="label-optional">(hours)</span></label>
+        <input type="number" id="flightTime" placeholder="e.g. 2.5" min="0.1" step="0.1" required />
+        <span class="form-hint">Enter as decimal e.g. 1h 30m = 1.5</span>
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-group">
+      <label for="notes">Notes <span class="label-optional">optional</span></label>
+      <textarea id="notes" placeholder="Anything worth sharing about the flight…"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitPirep()">Submit Flight Log</button>
+    <div class="form-status" id="formStatus"></div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">C<span>AELIS</span> AIR</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="roster.html">Roster</a></li>
+    <li><a href="pireps.html">PIREPs</a></li>
+    <li><a href="livery.html">Liveries</a></li>
+  </ul>
+  <p class="footer-meta">ICAO: CLS · IATA: CI · Callsign: CAELIS</p>
+</footer>
+
+<script>
+  // ── Set today's date as default ──
+  document.getElementById('date').valueAsDate = new Date();
+
+  // ── Force uppercase on airport fields ──
+  ['departure', 'arrival'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.value = this.value.toUpperCase();
+    });
+  });
+
+  // ── Submit ──
+  async function submitPirep() {
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('formStatus');
+
+    const pilotName  = document.getElementById('pilotName').value.trim();
+    const date       = document.getElementById('date').value;
+    const departure  = document.getElementById('departure').value.trim().toUpperCase();
+    const arrival    = document.getElementById('arrival').value.trim().toUpperCase();
+    const aircraft   = document.getElementById('aircraft').value.trim();
+    const flightTime = document.getElementById('flightTime').value.trim();
+    const notes      = document.getElementById('notes').value.trim();
+
+    // Basic validation
+    if (!pilotName || !date || !departure || !arrival || !aircraft || !flightTime) {
+      status.className = 'form-status error';
+      status.textContent = 'Please fill in all required fields before submitting.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    status.className = 'form-status';
+
+    try {
+      const res = await fetch('https://sheetdb.io/api/v1/lj0u5gp5ip34i?sheet=Sheet2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: [{
+            'Date': date,
+            'Pilot Name': pilotName,
+            'Departure': departure,
+            'Arrival': arrival,
+            'Aircraft': aircraft,
+            'Flight Time (hr)': flightTime,
+            'Notes': notes,
+          }]
+        })
+      });
+
+      if (!res.ok) throw new Error(`Server error ${res.status}`);
+
+      status.className = 'form-status success';
+      status.textContent = '✓ Flight logged! Thanks for submitting — it\'ll appear in the PIREP log shortly.';
+
+      // Clear form
+      ['pilotName', 'departure', 'arrival', 'aircraft', 'flightTime', 'notes'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('date').valueAsDate = new Date();
+
+    } catch (err) {
+      status.className = 'form-status error';
+      status.textContent = 'Something went wrong — please try again. If the issue persists, reach out on Discord.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Submit Flight Log';
+  }
+</script>
+
+</body>
+</html>
