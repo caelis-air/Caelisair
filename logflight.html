@@ -401,7 +401,10 @@ footer {
         })
       });
 
-      if (!res.ok) throw new Error(`Server error ${res.status}`);
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`${res.status}: ${errText}`);
+      }
 
       status.className = 'form-status success';
       status.textContent = '✓ Flight logged! Thanks for submitting — it\'ll appear in the PIREP log shortly.';
@@ -414,7 +417,7 @@ footer {
 
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = 'Something went wrong — please try again. If the issue persists, reach out on Discord.';
+      status.textContent = 'Debug error: ' + err.message;
     }
 
     btn.disabled = false;
