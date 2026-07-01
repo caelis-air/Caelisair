@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Handbook — Caelis Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1A2E;
+  --navy-mid: #132238;
+  --navy-card: #1a2d47;
+  --sky: #4FA9FF;
+  --silver: #D4D9E2;
+  --slate: #5A6475;
+  --white: #FFFFFF;
+  --font-head: 'Avenir Next', 'Century Gothic', 'Futura', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+  background: rgba(15, 26, 46, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(79, 169, 255, 0.12);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-icon { width: 36px; height: 36px; }
+.nav-logo-text {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: 17px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white);
+}
+.nav-logo-text span { color: var(--sky); }
+.nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--silver); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--sky); }
+.nav-links a.active { color: var(--sky); }
+.nav-cta {
+  background: var(--sky); color: var(--navy) !important;
+  padding: 8px 20px; border-radius: 4px; font-weight: 600 !important;
+}
+.nav-cta:hover { background: #70BBFF !important; }
+
+/* ── Page header ── */
+.page-header {
+  padding: 140px 24px 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(79,169,255,0.08);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,169,255,0.06) 0%, transparent 70%);
+}
+.section-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--sky); margin-bottom: 14px;
+}
+.page-title {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.page-sub {
+  font-size: 16px; font-style: italic; color: var(--sky);
+  max-width: 500px; margin: 0 auto;
+}
+
+/* ── Layout: TOC + content ── */
+.handbook-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 120px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── TOC ── */
+.toc {
+  position: sticky;
+  top: 100px;
+  background: var(--navy-card);
+  border: 1px solid rgba(79,169,255,0.12);
+  border-radius: 10px;
+  padding: 24px;
+}
+.toc-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sky); margin-bottom: 16px;
+}
+.toc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.toc a {
+  font-size: 13px; color: var(--silver); text-decoration: none;
+  display: block; padding: 4px 0;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.toc a:hover, .toc a.active { color: var(--sky); border-left-color: var(--sky); }
+
+/* ── Content ── */
+.handbook-content section {
+  margin-bottom: 56px;
+  scroll-margin-top: 90px;
+}
+.handbook-content h2 {
+  font-family: var(--font-head);
+  font-size: 24px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(79,169,255,0.15);
+}
+.handbook-content h3 {
+  font-family: var(--font-head);
+  font-size: 17px; font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sky);
+  margin: 28px 0 12px;
+}
+.handbook-content p {
+  font-size: 15px; color: var(--silver);
+  margin-bottom: 16px;
+}
+.handbook-content p strong { color: var(--white); }
+.handbook-content ul {
+  list-style: none;
+  margin-bottom: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.handbook-content ul li {
+  font-size: 15px; color: var(--silver);
+  padding-left: 22px;
+  position: relative;
+}
+.handbook-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 6px; height: 6px;
+  background: var(--sky);
+  border-radius: 50%;
+}
+.tagline-box {
+  background: var(--navy-card);
+  border: 1px solid rgba(79,169,255,0.2);
+  border-left: 3px solid var(--sky);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14px;
+  color: var(--silver);
+}
+.tagline-box strong { color: var(--sky); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.flying-line {
+  font-size: 15px; color: var(--silver); margin-bottom: 4px;
+}
+
+.promise-block {
+  text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(79,169,255,0.08) 0%, transparent 70%);
+  border: 1px solid rgba(79,169,255,0.12);
+  border-radius: 10px;
+}
+.promise-block .flying-line { font-size: 16px; }
+.promise-final {
+  font-family: var(--font-head);
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--sky);
+  margin-top: 24px;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid rgba(79,169,255,0.1);
+  padding: 40px 48px;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--silver);
+}
+.footer-logo span { color: var(--sky); }
+.footer-meta { font-size: 12px; color: var(--slate); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a {
+  font-size: 12px; color: var(--slate); text-decoration: none;
+  letter-spacing: 0.08em; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--sky); }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .handbook-wrap { grid-template-columns: 1fr; }
+  .toc { position: relative; top: 0; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="2A11F4DE-165C-434C-B847-4A60F67660D4.png" class="nav-logo-icon" alt="Caelis Air logo" />
+    <span class="nav-logo-text">C<span>AELIS</span> AIR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="roster.html">Roster</a></li>
+    <li><a href="pireps.html">PIREPs</a></li>
+    <li><a href="livery.html">Liveries</a></li>
+    <li><a href="handbook.html" class="active">Handbook</a></li>
+    <li><a href="#" class="nav-cta">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="section-label">The Caelis Air Handbook</p>
+  <h1 class="page-title">Handbook</h1>
+  <p class="page-sub">"Fly Far. Fly Together."</p>
+</div>
+
+<!-- BODY -->
+<div class="handbook-wrap">
+
+  <!-- TOC -->
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-title">Contents</p>
+    <ul>
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#philosophy">Our Philosophy</a></li>
+      <li><a href="#who-we-are">Who We Are</a></li>
+      <li><a href="#divisions">Divisions</a></li>
+      <li><a href="#membership">Membership</a></li>
+      <li><a href="#flying-styles">Supported Flying Styles</a></li>
+      <li><a href="#flight-logging">Flight Logging</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#community-standards">Community Standards</a></li>
+      <li><a href="#screenshots">Screenshots &amp; Media</a></li>
+      <li><a href="#liveries">Liveries</a></li>
+      <li><a href="#ranks">Ranks &amp; Recognition</a></li>
+      <li><a href="#promise">Our Promise</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="handbook-content">
+
+    <section id="welcome">
+      <h2>Welcome to Caelis Air</h2>
+      <p>Caelis Air is a community-first virtual airline built for flight simulation enthusiasts of all experience levels. We are not here to tell you what aircraft to fly, where to fly, or how long your flights need to be. We are here to bring aviation enthusiasts together.</p>
+      <p>Whether you fly airliners, general aviation, helicopters, military aircraft, vintage aircraft, or anything in between, you have a place here.</p>
+      <p><strong>At Caelis Air, every journey matters.</strong></p>
+    </section>
+
+    <section id="philosophy">
+      <h2>Our Philosophy</h2>
+      <p>Caelis Air is built around one simple idea:</p>
+      <div class="tagline-box"><strong>Core Idea</strong>Fly what you want. When you want. Where you want.</div>
+      <p>Unlike traditional virtual airlines, Caelis Air does not require members to follow a fixed fleet, route network, or schedule. We believe flight simulation should be flexible, welcoming, and fun.</p>
+      <p>You can fly a short VFR hop in a Cessna, a long-haul airline route in a 777, a helicopter mission, a fighter jet sortie, or a casual sightseeing flight. Your simulator experience is your own — and we are here to share it with you.</p>
+    </section>
+
+    <section id="who-we-are">
+      <h2>Who We Are</h2>
+      <p>Caelis Air is a virtual aviation community focused on:</p>
+      <ul>
+        <li>Freedom to fly your way</li>
+        <li>Community events and group flights</li>
+        <li>Screenshots, stories, and shared journeys</li>
+        <li>Welcoming pilots of every skill level</li>
+        <li>Civilian and Special Operations-style liveries</li>
+        <li>A positive, relaxed, and aviation-focused environment</li>
+      </ul>
+      <p>We are not a real airline and are not affiliated with any real-world airline, military branch, aircraft manufacturer, or government organization. Caelis Air exists for entertainment, flight simulation, and community purposes only.</p>
+    </section>
+
+    <section id="divisions">
+      <h2>Divisions</h2>
+
+      <h3>Caelis Air Civil Division</h3>
+      <p>The Civil Division represents the main Caelis Air community identity.</p>
+      <p>This division includes aircraft such as:</p>
+      <ul>
+        <li>Airbus A320neo</li>
+        <li>Boeing 737-800</li>
+        <li>Boeing 777-300ER</li>
+        <li>Boeing 747-400</li>
+        <li>Cessna 172</li>
+        <li>Other civilian aircraft members choose to fly</li>
+      </ul>
+      <p>Civil Division flights can include airline operations, general aviation, sightseeing, bush flying, long-haul flights, cargo flights, business aviation, and casual free flights.</p>
+      <div class="tagline-box"><strong>Tagline</strong>Fly Far. Fly Together.</div>
+
+      <h3>Caelis Air Special Operations</h3>
+      <p>Caelis Air Special Operations, also known as <strong>CA-SOG</strong>, is the military-inspired side of Caelis Air for members who enjoy special mission, fighter, helicopter, and stealth aircraft flying in simulators.</p>
+      <p>This division includes aircraft such as:</p>
+      <ul>
+        <li>F-22 Raptor</li>
+        <li>F-35 Lightning II</li>
+        <li>B-2 Spirit</li>
+        <li>UH-60 Black Hawk</li>
+        <li>Other military or special mission aircraft used in supported simulators</li>
+      </ul>
+      <p>Caelis Air Special Operations is fictional and exists only for flight simulation, roleplay, screenshots, events, and community activities.</p>
+      <div class="tagline-box"><strong>Motto</strong>Precision. Unity. Excellence.</div>
+    </section>
+
+    <section id="membership">
+      <h2>Membership</h2>
+      <p>Anyone with an interest in aviation or flight simulation is welcome to join Caelis Air.</p>
+      <p>You do not need to be an expert pilot. You do not need to fly on VATSIM. You do not need to own a specific simulator or aircraft. You simply need to respect the community and share a love for aviation.</p>
+      <p>New members are encouraged to introduce themselves, ask questions, share screenshots, and join events whenever they feel comfortable.</p>
+    </section>
+
+    <section id="flying-styles">
+      <h2>Supported Flying Styles</h2>
+      <p>Caelis Air welcomes many styles of flying, including:</p>
+      <ul>
+        <li>Airline operations</li>
+        <li>General aviation</li>
+        <li>Bush flying</li>
+        <li>Helicopter operations</li>
+        <li>Military-style simulation</li>
+        <li>Long-haul flights</li>
+        <li>Short hops</li>
+        <li>Cargo flights</li>
+        <li>VFR sightseeing</li>
+        <li>IFR practice</li>
+        <li>Group flights</li>
+        <li>Offline flights</li>
+        <li>Online network flights</li>
+      </ul>
+      <p>There is no single correct way to enjoy Caelis Air.</p>
+    </section>
+
+    <section id="flight-logging">
+      <h2>Flight Logging</h2>
+      <p>Caelis Air focuses on journeys, not restrictions.</p>
+      <p>Members may share flights through screenshots, journey posts, event participation, or any future tracking system used by the community.</p>
+      <p>A flight log may include:</p>
+      <ul>
+        <li>Departure airport</li>
+        <li>Arrival airport</li>
+        <li>Aircraft flown</li>
+        <li>Simulator used</li>
+        <li>Flight time</li>
+        <li>Screenshots</li>
+        <li>Route notes</li>
+        <li>Favorite moment from the flight</li>
+      </ul>
+      <p>Short flights and long flights are both welcome. A 20-minute sightseeing flight matters just as much as a 12-hour ocean crossing.</p>
+    </section>
+
+    <section id="events">
+      <h2>Events</h2>
+      <p>Caelis Air events are designed to bring members together without limiting creativity.</p>
+      <p>Event types may include:</p>
+      <ul>
+        <li>Friday Night Fly-Outs</li>
+        <li>Destination of the Week</li>
+        <li>Screenshot Sunday</li>
+        <li>Bush Trip Weekends</li>
+        <li>Historic Aircraft Nights</li>
+        <li>Around the World Challenges</li>
+        <li>Helicopter Operations</li>
+        <li>Special Operations Missions</li>
+        <li>Long-Haul Community Flights</li>
+        <li>Seasonal and holiday events</li>
+      </ul>
+      <p>Unless an event says otherwise, members are encouraged to fly the aircraft they enjoy most.</p>
+    </section>
+
+    <section id="community-standards">
+      <h2>Community Standards</h2>
+      <p>Caelis Air is built on respect, kindness, and inclusion.</p>
+      <p>All members are expected to:</p>
+      <ul>
+        <li>Treat others with respect</li>
+        <li>Welcome new pilots</li>
+        <li>Avoid gatekeeping</li>
+        <li>Keep discussions friendly</li>
+        <li>Use channels appropriately</li>
+        <li>Follow Discord's Terms of Service</li>
+        <li>Avoid harassment, hate speech, threats, scams, or offensive content</li>
+        <li>Listen to staff when moderation is needed</li>
+      </ul>
+      <p>We want Caelis Air to be a place where people feel comfortable learning, sharing, and flying together.</p>
+    </section>
+
+    <section id="screenshots">
+      <h2>Screenshots and Media</h2>
+      <p>Members are encouraged to share screenshots, videos, clips, liveries, flight stories, and simulator moments.</p>
+      <p>When sharing media:</p>
+      <ul>
+        <li>Keep content appropriate</li>
+        <li>Credit creators when needed</li>
+        <li>Do not steal or repost someone else's work as your own</li>
+        <li>Avoid real-world political or sensitive military messaging</li>
+        <li>Keep fictional Caelis branding respectful and community-focused</li>
+      </ul>
+      <p>Screenshots and media are a major part of the Caelis Air experience.</p>
+    </section>
+
+    <section id="liveries">
+      <h2>Liveries</h2>
+      <p>Caelis Air uses two main livery styles:</p>
+
+      <h3>Civil Livery</h3>
+      <p>The Civil livery features a clean white base, Midnight Navy, Sky Blue accents, and the Caelis Air logo. It is designed to feel modern, welcoming, and recognizable.</p>
+
+      <h3>Special Operations Livery</h3>
+      <p>The Special Operations livery uses Gunmetal Gray, Midnight Navy, Slate Gray, Steel Blue, and Muted Silver. It is designed to look low-visibility, professional, and military-inspired while remaining fictional.</p>
+
+      <p>Members may use official Caelis Air liveries when available or create their own, as long as they respect the brand and community guidelines.</p>
+    </section>
+
+    <section id="ranks">
+      <h2>Ranks and Recognition</h2>
+      <p>Caelis Air does not restrict aircraft access by rank.</p>
+      <p>Instead of using ranks to limit what you can fly, Caelis Air may use recognition roles, badges, or achievements to celebrate community involvement.</p>
+      <p>Examples may include:</p>
+      <ul>
+        <li>New Explorer</li>
+        <li>Pathfinder</li>
+        <li>Voyager</li>
+        <li>Wayfinder</li>
+        <li>Sky Ambassador</li>
+        <li>Horizon Keeper</li>
+      </ul>
+      <p>Recognition is based on participation, helpfulness, events, creativity, and community spirit — not just flight hours.</p>
+    </section>
+
+    <section id="promise" class="promise-block">
+      <h2 style="border:none;">Our Promise</h2>
+      <p>Caelis Air is a place for aviation enthusiasts to belong.</p>
+      <p class="flying-line">You can fly casually.</p>
+      <p class="flying-line">You can fly realistically.</p>
+      <p class="flying-line">You can fly solo.</p>
+      <p class="flying-line">You can fly with others.</p>
+      <p class="flying-line">You can fly civil.</p>
+      <p class="flying-line">You can fly special operations.</p>
+      <p class="flying-line">You can fly your way.</p>
+      <p style="margin-top:20px;">Every member adds something to the community.<br>Every journey has a story.</p>
+      <p class="promise-final">Fly Far. Fly Together.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">C<span>AELIS</span> AIR</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="roster.html">Roster</a></li>
+    <li><a href="pireps.html">PIREPs</a></li>
+    <li><a href="livery.html">Liveries</a></li>
+  </ul>
+  <p class="footer-meta">ICAO: CLS · IATA: CI · Callsign: CAELIS</p>
+</footer>
+
+<script>
+  // Highlight active TOC link on scroll
+  const sections = document.querySelectorAll('.handbook-content section');
+  const tocLinks = document.querySelectorAll('.toc a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
